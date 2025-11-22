@@ -44,6 +44,8 @@ the hook.c, hash.h and hook.h files are rough templates, but they can be dropped
 
 Note that evasion capabilities such as the Draugr implementation and sleep masking have been removed from the hook.c to keep this codebase clean and portable. If you wish to keep those features, you can add them back from the original copies in Crystal kit.
 
+You must select wininet as the http library to use when generating the beacon dll.
+
 ## Credits and references
 - https://github.com/rasta-mouse/Crystal-Kit (Original template for dev and testing) 
 - https://github.com/RedSiege/GraphStrike (IAT hooking to implement a Graph channel)
