@@ -39,6 +39,10 @@ The PoC in the handleCallback function in the broker.py currently does the follo
 2. calls ```process_encoded_request(encoded_request)```
 3. writes the response to response.txt
 
+```usage: broker.py [-h] --host HOST --port PORT```
+where the host and port points to the http listener on your teamserver. The broker parses out the http request and sends it to the actual
+listener.
+
 ## Usage
 the hook.c, hash.h and hook.h files are rough templates, but they can be dropped into [Crystal kit](https://github.com/rasta-mouse/Crystal-Kit) to be used as is as a PoC. Place them into the udrl/src folder, replacing the existing copies. tcg.h is unchanged (from Raphael Mudge's tradecraft garden)
 

@@ -1,3 +1,4 @@
+import argparse
 import base64
 import http.client
 import json
@@ -5,7 +6,7 @@ import logging
 import ssl
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Callable
+from typing import Any, Callable, Dict, List, Optional
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -19,6 +20,9 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
 )
+
+CLI_HOST: Optional[str] = None
+CLI_PORT: Optional[int] = None
 
 
 # ---------------------------------------------------------------------------
@@ -66,8 +70,8 @@ def send_http_request(request: Dict[str, Any]) -> Dict[str, Any]:
     Send an HTTP/HTTPS request based on the decoded request dictionary.
     """
     scheme = request.get("scheme", "http")
-    host = request.get("host", "")
-    port = request.get("port")
+    host = CLI_HOST
+    port = CLI_PORT
     path = request.get("path", "/")
     method = request.get("method", "GET")
     headers = build_headers(request.get("headers"))
@@ -164,7 +168,7 @@ def process_encoded_request(encoded_request: str) -> str:
 #
 # ---------------------------------------------------------------------------
 
-def handleCallback() -> bool:
+def handleCallback(process_func: Callable[[str], str] = process_encoded_request) -> bool:
     """
     Handle a single callback cycle.
 
@@ -197,7 +201,7 @@ def handleCallback() -> bool:
         # This is what you call to send data to the teamserver
         # you must call process_func on the encoded request to get
         # the response
-        encoded_response = process_encoded_request(encoded_request)
+        encoded_response = process_func(encoded_request)
 
         # --- Send data back (transport-specific, inline) ---
         RESPONSE_FILE.write_text(encoded_response, encoding="utf-8")
@@ -223,6 +227,32 @@ def main() -> None:
     """
     Entry point. Repeatedly calls handleCallback to process requests.
     """
+    global CLI_HOST, CLI_PORT
+
+    parser = argparse.ArgumentParser(description="HTTP bridge broker.")
+    parser.add_argument(
+        "--host",
+        dest="host",
+        required=True,
+        help="Destination host for outgoing requests (required).",
+    )
+    parser.add_argument(
+        "--port",
+        dest="port",
+        type=int,
+        required=True,
+        help="Destination port for outgoing requests (required).",
+    )
+    args = parser.parse_args()
+
+    CLI_HOST = args.host or CLI_HOST
+    CLI_PORT = args.port if args.port is not None else CLI_PORT
+
+    if CLI_HOST:
+        logging.info("Overriding request host with CLI value: %s", CLI_HOST)
+    if CLI_PORT is not None:
+        logging.info("Overriding request port with CLI value: %s", CLI_PORT)
+
     logging.info(
         "Starting HTTP bridge. Polling %s every %.2f seconds.",
         REQUEST_FILE,
