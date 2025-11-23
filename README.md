@@ -63,6 +63,8 @@ There is a (technically) cleaner implementation that I tried that involved using
 
 This implementation I felt was better because it is less dependent on the hacky malleable profile (technically, it still requires beacon response output to be sent in the response body, but thats the only requirement) and the code was 10x easier to read. 
 
+Also worth noting that there is no obfuscation or encryption on the http request json other than base64 encoding - you are free to add your own, but since Beacon callbacks are already encrypted, technically no data is at risk of being decrypted. The worst that could happen is that the base64 blob if retrieved could be identified as a HTTP request. Do with that information what you will.
+
 ## Credits and references
 - https://github.com/rasta-mouse/Crystal-Kit (Original template for dev and testing) 
 - https://github.com/RedSiege/GraphStrike (IAT hooking to implement a Graph channel)
