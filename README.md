@@ -2,6 +2,20 @@
 
 This is a simple PoC and template for developing custom C2 channels for Cobalt Strike using IAT hooks applied by a reflective loader.
 
+## Usage
+the hook.c, hash.h and hook.h files are rough templates, but they can be dropped into [Crystal kit](https://github.com/rasta-mouse/Crystal-Kit) to be used as is as a PoC. Place them into the udrl/src folder, replacing the existing copies. tcg.h is unchanged (from Raphael Mudge's tradecraft garden)
+
+Examples in the examples/ folder can be used as is, but they are **examples** and operational considerations were not taken when writing them. Use with caution.
+
+Current examples are:
+- named pipe (broker must run on same host)
+- TCP
+- UDP
+
+Note that original evasion capabilities in Crystal kit such as the Draugr implementation and sleep masking have been removed from the hook.c to keep this codebase clean and portable. If you wish to keep those features, you can add them back from the original copies in Crystal kit.
+
+You must select wininet as the http library to use when generating the beacon dll.
+
 ## Why did I make this?
 The official ExternalC2 interface is a pain to use - it requires staging of an SMB beacon OVER the externalc2 channel, and (until 4.10) did not support communicating with a premade SMB beacon without staging through the externalc2 agent first. Even in its current state, it is still tied to the architecture of:  
 ```
@@ -48,13 +62,6 @@ The PoC in the handleCallback function in the broker.py currently does the follo
 ```usage: broker.py [-h] --host HOST --port PORT```
 where the host and port points to the http listener on your teamserver. The broker parses out the http request and sends it to the actual
 listener.
-
-## Usage
-the hook.c, hash.h and hook.h files are rough templates, but they can be dropped into [Crystal kit](https://github.com/rasta-mouse/Crystal-Kit) to be used as is as a PoC. Place them into the udrl/src folder, replacing the existing copies. tcg.h is unchanged (from Raphael Mudge's tradecraft garden)
-
-Note that original evasion capabilities in Crystal kit such as the Draugr implementation and sleep masking have been removed from the hook.c to keep this codebase clean and portable. If you wish to keep those features, you can add them back from the original copies in Crystal kit.
-
-You must select wininet as the http library to use when generating the beacon dll.
 
 ## Other random fun facts about this implementation, for anyone that cares
 This is probably the "laziest" way I to do it, but also one of the more stable ways. It basically just wraps up the entire HTTP request up and ships it over to the broker however you want, which then sends it to the teamserver for real, to run as a HTTP beacon, totally transparent to the teamserver.
