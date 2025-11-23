@@ -38,8 +38,14 @@ following:
 
 ```customCallback``` function to perform the following things:
 
-1. transmit the base64 blob (its only argument) out via any means necessary
+1. transmit the base64 blob (its first argument) out via any means necessary
 2. get the response and return it
+
+You can use the original host and port of the http request (which you set from cobalt) via the args:
+```
+const char *host
+INTERNET_PORT port
+```
 
 and modify the ```handleCallback()``` function in broker.py to do the following:
 
