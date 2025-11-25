@@ -6,7 +6,7 @@ import logging
 import socket
 import ssl
 import time
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -279,7 +279,7 @@ def parse_ntp_request(packet: bytes) -> Optional[Dict[str, Any]]:
 #
 # ---------------------------------------------------------------------------
 
-def handleCallback(process_func: Callable[[str], str] = process_encoded_request) -> bool:
+def handleCallback() -> bool:
     """
     Handle a single callback cycle over NTP (UDP).
 
@@ -306,7 +306,7 @@ def handleCallback(process_func: Callable[[str], str] = process_encoded_request)
             if parsed is None:
                 return False
 
-            encoded_response = process_func(parsed["payload"])
+            encoded_response = process_encoded_request(parsed["payload"])
             response_payload = len(encoded_response).to_bytes(4, byteorder="big") + encoded_response.encode("utf-8")
             response_packet = build_ntp_response(
                 response_payload,
@@ -373,7 +373,7 @@ def main() -> None:
     logging.info("Listening on %s:%s for NTP callbacks.", LISTEN_HOST, LISTEN_PORT)
 
     while True:
-        handled = handleCallback(process_encoded_request)
+        handled = handleCallback()
 
 
 if __name__ == "__main__":

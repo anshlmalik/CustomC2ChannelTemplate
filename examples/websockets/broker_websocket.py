@@ -5,8 +5,7 @@ import http.client
 import json
 import logging
 import ssl
-from functools import partial
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import websockets
 
@@ -156,8 +155,6 @@ def process_encoded_request(encoded_request: str) -> str:
 async def _handle_websocket(
     websocket: websockets.WebSocketServerProtocol,
     path: Optional[str] = None,
-    *,
-    process_func: Callable[[str], str],
 ) -> None:
     """Handle messages on a single WebSocket connection."""
 
@@ -173,7 +170,7 @@ async def _handle_websocket(
             encoded_request = message.decode("utf-8") if isinstance(message, bytes) else message
             logging.info("Processing request payload (%d bytes).", len(encoded_request))
 
-            encoded_response = process_func(encoded_request)
+            encoded_response = process_encoded_request(encoded_request)
             await websocket.send(encoded_response)
             logging.info("Sent response payload (%d bytes).", len(encoded_response))
     except websockets.ConnectionClosed:
@@ -182,7 +179,7 @@ async def _handle_websocket(
         logging.exception("Unhandled error while processing WebSocket messages: %s", exc)
 
 
-def handleCallback(process_func: Callable[[str], str] = process_encoded_request) -> bool:
+def handleCallback() -> bool:
     """Start a WebSocket server that bridges encoded requests to HTTP callbacks."""
 
     if LISTEN_HOST is None or LISTEN_PORT is None:
@@ -190,7 +187,7 @@ def handleCallback(process_func: Callable[[str], str] = process_encoded_request)
 
     async def _run_server() -> None:
         server = await websockets.serve(
-            partial(_handle_websocket, process_func=process_func),
+            _handle_websocket,
             LISTEN_HOST,
             LISTEN_PORT,
             max_size=None,
@@ -251,7 +248,7 @@ def main() -> None:
     logging.info("Destination (teamserver) port: %s", CLI_PORT)
     logging.info("Listening on %s:%s for callbacks.", LISTEN_HOST, LISTEN_PORT)
 
-    handleCallback(process_encoded_request)
+    handleCallback()
 
 
 if __name__ == "__main__":
